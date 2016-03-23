@@ -33,6 +33,7 @@ namespace asphomework1.Models
                 SqlDataAdapter sqlAdapter = new SqlDataAdapter();
                 sqlAdapter.Fill(result);
                 conn.Close();
+                
             }
             return result;
         }

@@ -14,32 +14,32 @@
 <body>
     <div><h3>訂單查詢</h3></div>
     <div>
-        <table  style="border: 5px ;" rules="all">
+        <table  border="1" style="width:50%" border-collapse="collapse">
             <tr>
                 <td>訂單編號</td>
-                <td>@Html.TextBox("OrderID")</td>
+                <td colspan="3">@Html.TextBox("OrderID")</td>
             </tr>
             <tr>
                 <td>客戶名稱</td>
-                <td>@Html.TextBox("CustomerID")</td>
+                <td colspan="3">@Html.TextBox("CustomerID")</td>
             </tr>
             <tr>
                 <td>負責員工</td>
-                <td>@*@Html.DropDownList();*@</td>
+                <td colspan="3"><select></select>  @*@Html.DropDownList();*@</td>
             </tr>
             <tr>
                 <td>出貨公司</td>
-                <td>@*@Html.DropDownList();*@</td>
+                <td colspan="3"><select></select>@*@Html.DropDownList();*@</td>
             </tr>
             <tr>
                 <td>訂購日期</td>
-                <td><input type="date" /></td>
+                <td colspan="3"><input type="date" /></td>
                 <td>出貨日期</td>
-                <td><input type="date" /></td>
+                <td colspan="3"><input type="date" /></td>
             </tr>
             <tr>
                 <td>需要日期</td>
-                <td><input type="date" /></td>
+                <td colspan="3"><input type="date" /></td>
             </tr>
         </table>
     </div>
