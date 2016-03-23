@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SelectIndex</title>
+</head>
+<body>
+    <div><h3>訂單查詢</h3></div>
+    <div>
+        <table  style="border: 5px ;" rules="all">
+            <tr>
+                <td>訂單編號</td>
+                <td>@Html.TextBox("OrderID")</td>
+            </tr>
+            <tr>
+                <td>客戶名稱</td>
+                <td>@Html.TextBox("CustomerID")</td>
+            </tr>
+            <tr>
+                <td>負責員工</td>
+                <td>@*@Html.DropDownList();*@</td>
+            </tr>
+            <tr>
+                <td>出貨公司</td>
+                <td>@*@Html.DropDownList();*@</td>
+            </tr>
+            <tr>
+                <td>訂購日期</td>
+                <td><input type="date" /></td>
+                <td>出貨日期</td>
+                <td><input type="date" /></td>
+            </tr>
+            <tr>
+                <td>需要日期</td>
+                <td><input type="date" /></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

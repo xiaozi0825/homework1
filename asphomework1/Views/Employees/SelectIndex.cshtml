@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SelectIndex</title>
+</head>
+<body>
+    <div><h3>訂單查詢</h3></div>
+    <div> 
+        <table>
+            <tr>
+                <td>訂單編號</td>
+                <td>@Html.TextBox("OrderID")</td>
+            </tr>
+            <tr>
+                <td>客戶名稱</td>
+                <td>@Html.TextBox("CustomerID")</td>
+            </tr>
+            <tr>
+                <td>負責員工</td>
+                <td>@*@Html.DropDownList();*@</td>
+            </tr>
+            <tr>
+                <td>出貨公司</td>
+                <td>@*@Html.DropDownList();*@</td>
+            </tr>
+            <tr>
+                <td>訂購日期</td>
+                <td>@Html.Html5DateRenderingMode</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
