@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using asphomework1.Models;
 
 namespace asphomework1.Controllers
 {
@@ -18,6 +19,19 @@ namespace asphomework1.Controllers
             return View();
 
         }
-        
+
+        public List<Employees> GetEmployeesById()
+        {
+            EmployeesService EmployeesService = new EmployeesService();
+
+            List<Employees> result = EmployeesService.GetEmployeesById();
+            foreach(var item in result)
+            {
+                ViewBag.name = item;
+            }
+
+            return ViewBag.name;
+        }
+
     }
 }

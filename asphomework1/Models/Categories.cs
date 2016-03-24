@@ -6,27 +6,27 @@ namespace asphomework1.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Sales.Shippers")]
-    public partial class Shippers
+    [Table("Production.Categories")]
+    public partial class Categories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shippers()
+        public Categories()
         {
-            Orders = new HashSet<Orders>();
+            Products = new HashSet<Products>();
         }
 
         [Key]
-        public int ShipperID { get; set; }
+        public int CategoryID { get; set; }
 
         [Required]
-        [StringLength(40)]
-        public string CompanyName { get; set; }
+        [StringLength(15)]
+        public string CategoryName { get; set; }
 
         [Required]
-        [StringLength(24)]
-        public string Phone { get; set; }
+        [StringLength(200)]
+        public string Description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
     }
 }
