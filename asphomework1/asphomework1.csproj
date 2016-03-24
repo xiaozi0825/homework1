@@ -80,6 +80,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -203,12 +205,23 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\Employees.cs" />
     <Compile Include="Models\EmployeesService.cs" />
+    <Compile Include="Models\EmpOrders.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\Nums.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
+    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\OrderValues.cs" />
+    <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Scores.cs" />
     <Compile Include="Models\Shippers.cs" />
+    <Compile Include="Models\Suppliers.cs" />
+    <Compile Include="Models\Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

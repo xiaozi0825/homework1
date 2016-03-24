@@ -6,27 +6,20 @@ namespace asphomework1.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Sales.Shippers")]
-    public partial class Shippers
+    [Table("Stats.Tests")]
+    public partial class Tests
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shippers()
+        public Tests()
         {
-            Orders = new HashSet<Orders>();
+            Scores = new HashSet<Scores>();
         }
 
         [Key]
-        public int ShipperID { get; set; }
-
-        [Required]
-        [StringLength(40)]
-        public string CompanyName { get; set; }
-
-        [Required]
-        [StringLength(24)]
-        public string Phone { get; set; }
+        [StringLength(10)]
+        public string TestID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Scores> Scores { get; set; }
     }
 }

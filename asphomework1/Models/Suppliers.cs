@@ -6,38 +6,29 @@ namespace asphomework1.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("HR.Employees")]
-    public partial class Employees
+    [Table("Production.Suppliers")]
+    public partial class Suppliers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employees()
+        public Suppliers()
         {
-            Employees1 = new HashSet<Employees>();
-            Orders = new HashSet<Orders>();
+            Products = new HashSet<Products>();
         }
 
         [Key]
-        public int EmployeeID { get; set; }
+        public int SupplierID { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string LastName { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string FirstName { get; set; }
+        [StringLength(40)]
+        public string CompanyName { get; set; }
 
         [Required]
         [StringLength(30)]
-        public string Title { get; set; }
+        public string ContactName { get; set; }
 
         [Required]
-        [StringLength(25)]
-        public string TitleOfCourtesy { get; set; }
-
-        public DateTime BirthDate { get; set; }
-
-        public DateTime HireDate { get; set; }
+        [StringLength(30)]
+        public string ContactTitle { get; set; }
 
         [Required]
         [StringLength(60)]
@@ -61,14 +52,10 @@ namespace asphomework1.Models
         [StringLength(24)]
         public string Phone { get; set; }
 
-        public int? MnangerID { get; set; }
+        [StringLength(24)]
+        public string Fax { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employees> Employees1 { get; set; }
-
-        public virtual Employees Employees2 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
     }
 }
