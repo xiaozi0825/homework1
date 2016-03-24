@@ -14,7 +14,7 @@ namespace asphomework1.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-
+            DataTable dt = new DataTable();
             return View();
 
         }
