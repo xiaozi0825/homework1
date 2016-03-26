@@ -216,10 +216,12 @@
     <Compile Include="Models\Nums.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\OrdersService.cs" />
     <Compile Include="Models\OrderValues.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Scores.cs" />
     <Compile Include="Models\Shippers.cs" />
+    <Compile Include="Models\ShippersService.cs" />
     <Compile Include="Models\Suppliers.cs" />
     <Compile Include="Models\Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -303,6 +305,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\EmployeesService\" />
+    <Folder Include="Views\Shippers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

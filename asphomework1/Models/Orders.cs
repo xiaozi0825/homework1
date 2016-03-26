@@ -22,7 +22,7 @@ namespace asphomework1.Models
 
         public int EmployeeID { get; set; }
 
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         public DateTime RequiredDate { get; set; }
 
@@ -63,5 +63,9 @@ namespace asphomework1.Models
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
 
         public virtual Shippers Shippers { get; set; }
+
+        [Required]
+        [StringLength(40)]
+        public string CompanyName { get; set; }
     }
 }

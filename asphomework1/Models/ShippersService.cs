@@ -7,46 +7,45 @@ using System.Web;
 
 namespace asphomework1.Models
 {
-    public class EmployeesService
+    public class ShippersService
     {
         private string GetconnectionStrings()
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString.ToString();
         }
 
-        public List<Employees> GetEmployeesName()
+        public List<Shippers> GetShippersName()
         {
             DataTable result = new DataTable();
-            string sql = @"SELECT EmployeeID,LastName+'-'+FirstName as LastName FROM HR.Employees ";
+            string sql = @"SELECT ShipperID,CompanyName FROM Sales.Shippers";
 
             using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
             {
                 conn.Open();
                 SqlDataAdapter sqlAdapter = new SqlDataAdapter();
                 sqlAdapter.SelectCommand = new SqlCommand(sql, conn);
+
                 sqlAdapter.Fill(result);
                 conn.Close();
 
             }
-            return this.MapEmployeeIDList(result);
+            return this.MapSipperNameToList(result);
         }
 
-        private List<Employees> MapEmployeeIDList(DataTable orderData)
+        private List<Shippers> MapSipperNameToList(DataTable orderData)
         {
-            List<Employees> result = new List<Employees>();
+            List<Shippers> result = new List<Shippers>();
 
 
             foreach (DataRow row in orderData.Rows)
             {
-                result.Add(new Employees()
+                result.Add(new Shippers()
                 {
-                    LastName = row["LastName"].ToString(),
-                    EmployeeID = (int)row["EmployeeID"]
+                    ShipperID = (int)row["ShipperID"],
+                    CompanyName = row["CompanyName"].ToString()
                 });
             }
             return result;
         }
-
-        
     }
 }

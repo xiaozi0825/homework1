@@ -1,4 +1,4 @@
-﻿
+﻿@model asphomework1.Models.Orders
 @{
     Layout = null;
 }
@@ -14,47 +14,73 @@
     <title>SelectIndex</title>
 </head>
 <body>
+    @using(Html.BeginForm("Index","Order",FormMethod.Post,new { id = "Form1" })) { 
     <div><h3>訂單查詢</h3></div>
     <div>
         <table border="1" style="width:50%" border-collapse="collapse">
             <tr>
                 <td>訂單編號</td>
-                <td colspan="3">@Html.TextBox("OrderID")</td>
+                <td colspan="3">@Html.TextBoxFor(Models => Models.OrderID)</td>
             </tr>
             <tr>
                 <td>客戶名稱</td>
-                <td colspan="3">@Html.TextBox("CustomerID")</td>
+                <td colspan="3">@Html.TextBoxFor(Models => Models.CustomerID)</td>
             </tr>
             <tr>
                 <td>負責員工</td>
                 <td colspan="3">
-                    @Html.DropDownList("name")
+                    @Html.DropDownListFor(Models => Models.EmployeeID, (List<SelectListItem>)ViewData["EmpData"])
                 </td>
             </tr>
             <tr>
                 <td>出貨公司</td>
-                <td colspan="3"><select></select>@*@Html.DropDownList();*@</td>
+                <td colspan="3">@Html.DropDownListFor(Models => Models.ShipperID, (List<SelectListItem>)ViewData["ShippersData"])</td>
             </tr>
             <tr>
                 <td>訂購日期</td>
-                <td colspan="3"><input type="date" /></td>
+                <td colspan="3">@Html.TextBoxFor(Models => Models.OrderDate, new { @type = "date" })</td>
                 <td>出貨日期</td>
-                <td colspan="3"><input type="date" /></td>
+                <td colspan="3">@Html.TextBoxFor(Models => Models.ShippedDate, new { @type = "date" })</td>
             </tr>
             <tr>
                 <td>需要日期</td>
-                <td colspan="3"><input type="date" /></td>
+                <td colspan="3">@Html.TextBoxFor(Models => Models.RequiredDate, new { @type = "date" })</td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="3">
-                    <input type="button" value="查詢" />
+                    <input type="submit" value="查詢" />
                     <input type="button" value="清除" />
                     <input type="button" value="新增訂單" />
                 </td>
             </tr>
         </table>
     </div>
+
+    <div>
+        @if(ViewBag.SelectData != null)
+        {
+            <table border="1" style="width:50%" border-collapse="collapse">
+                <tr>
+                    <td colspan="3">訂單編號</td>
+                    <td colspan="3">客戶名稱</td>
+                    <td colspan="3">訂購日期</td>
+                    <td colspan="3">發貨日期</td>
+                </tr>
+                @foreach (var item in (List<asphomework1.Models.Orders>)ViewBag.SelectData)
+                    {
+                    <tr id='@item.OrderID'>
+                        <td colspan="3">@item.OrderID</td>
+                        <td colspan="3">@item.CompanyName</td>
+                        <td colspan="3">@item.OrderDate</td>
+                        <td colspan="3">@item.ShippedDate</td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    }
+
 </body>
 
 
