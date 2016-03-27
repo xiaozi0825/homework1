@@ -13,7 +13,7 @@ namespace asphomework1.Controllers
     public class EmployeesController : Controller
     {
         // GET: Employees
-        public ActionResult Index(Models.Orders selectitem)
+        public ActionResult Index(Models.SelectSearch selectitem)
         {
             EmployeesService EmployeesService = new EmployeesService();
             List<Employees> result = EmployeesService.GetEmployeesName();

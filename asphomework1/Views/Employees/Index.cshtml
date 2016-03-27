@@ -1,4 +1,4 @@
-﻿@model asphomework1.Models.Orders
+﻿@model asphomework1.Models.SelectSearch
 @{
     Layout = null;
 }
@@ -14,7 +14,7 @@
     <title>SelectIndex</title>
 </head>
 <body>
-    @using(Html.BeginForm("Index","Order",FormMethod.Post,new { id = "Form1" })) { 
+    @using(Html.BeginForm("Index", "Employees", FormMethod.Post,new { id = "Form1" })) {
     <div><h3>訂單查詢</h3></div>
     <div>
         <table border="1" style="width:50%" border-collapse="collapse">
@@ -68,7 +68,7 @@
                     <td colspan="3">發貨日期</td>
                 </tr>
                 @foreach (var item in (List<asphomework1.Models.Orders>)ViewBag.SelectData)
-                    {
+                {
                     <tr id='@item.OrderID'>
                         <td colspan="3">@item.OrderID</td>
                         <td colspan="3">@item.CompanyName</td>

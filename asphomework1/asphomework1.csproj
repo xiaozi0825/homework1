@@ -220,6 +220,7 @@
     <Compile Include="Models\OrderValues.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Scores.cs" />
+    <Compile Include="Models\SelectSearch.cs" />
     <Compile Include="Models\Shippers.cs" />
     <Compile Include="Models\ShippersService.cs" />
     <Compile Include="Models\Suppliers.cs" />
