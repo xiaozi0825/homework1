@@ -22,11 +22,11 @@ namespace asphomework1.Models
 
         public int EmployeeID { get; set; }
 
-        public DateTime? OrderDate { get; set; }
+        public string OrderDate { get; set; }
 
         public DateTime RequiredDate { get; set; }
 
-        public DateTime? ShippedDate { get; set; }
+        public string ShippedDate { get; set; }
 
         public int ShipperID { get; set; }
 

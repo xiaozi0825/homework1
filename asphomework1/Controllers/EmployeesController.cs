@@ -19,6 +19,11 @@ namespace asphomework1.Controllers
             List<Employees> result = EmployeesService.GetEmployeesName();
 
             List<SelectListItem> EmployeesData = new List<SelectListItem>();
+            EmployeesData.Add(new SelectListItem()
+            {
+                Text = "",
+                Value = null
+            });
             foreach (var item in result)
             {
                 EmployeesData.Add(new SelectListItem()
@@ -33,6 +38,11 @@ namespace asphomework1.Controllers
             List<Shippers> result1 = ShippersService.GetShippersName();
 
             List<SelectListItem> ShippersData = new List<SelectListItem>();
+            ShippersData.Add(new SelectListItem()
+            {
+                Text = "",
+                Value = null
+            });
             foreach (var item in result1)
             {
                 ShippersData.Add(new SelectListItem()
@@ -43,6 +53,7 @@ namespace asphomework1.Controllers
                 ViewData["ShippersData"] = ShippersData;
             }
 
+            
             OrdersService OrdersService = new OrdersService();
             ViewBag.SelectData = OrdersService.SelectOrder(selectitem);
 
@@ -50,5 +61,7 @@ namespace asphomework1.Controllers
             return View();
 
         }
+
+        
     }
 }

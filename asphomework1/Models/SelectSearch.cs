@@ -20,5 +20,7 @@ namespace asphomework1.Models
         public string ShippedDate { get; set; }
 
         public string RequiredDate { get; set; }
+
+        public string CompanyName { get; set; }
     }
 }

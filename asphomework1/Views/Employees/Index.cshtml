@@ -7,13 +7,13 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>SelectIndex</title>
 </head>
 <body>
+    
     @using(Html.BeginForm("Index", "Employees", FormMethod.Post,new { id = "Form1" })) {
     <div><h3>訂單查詢</h3></div>
     <div>
@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td>客戶名稱</td>
-                <td colspan="3">@Html.TextBoxFor(Models => Models.CustomerID)</td>
+                <td colspan="3">@Html.TextBoxFor(Models => Models.CompanyName)</td>
             </tr>
             <tr>
                 <td>負責員工</td>
