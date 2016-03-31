@@ -20,13 +20,13 @@ namespace asphomework1.Models
             string sql = @"SELECT OrderID,b.CompanyName,CONVERT(varchar(10) ,OrderDate, 111 ) AS OrderDate,CONVERT(varchar(10) ,ShippedDate, 111 ) AS ShippedDate 
                            FROM Sales.Orders AS a JOIN Sales.Customers AS b ON a.CustomerID=b.CustomerID JOIN Sales.Shippers AS c ON a.ShipperID=c.ShipperID
                            WHERE (b.CompanyName LIKE '%'+@CompanyName+'%' OR @CompanyName = '') AND 
-                           (a.OrderID LIKE @OrderID OR @OrderID = '') AND 
+                           (a.OrderID LIKE '%'+@OrderID+'%' OR @OrderID = '') AND 
                             (a.EmployeeID LIKE @EmployeeID OR @EmployeeID = '') AND 
                             (a.ShipperID LIKE @ShipperID OR @ShipperID = '') AND 
                             (OrderDate >= @OrderDate AND OrderDate < DATEADD(DAY,1,@OrderDate) OR @OrderDate = '') AND 
                             (ShippedDate >= @ShippedDate AND ShippedDate < DATEADD(DAY,1,@ShippedDate) OR @ShippedDate = '') AND 
                             (RequiredDate >= @RequiredDate AND RequiredDate < DATEADD(DAY,1,@RequiredDate) OR @RequiredDate = '')";
-            
+
             using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
             {
                 conn.Open();

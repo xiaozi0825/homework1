@@ -53,7 +53,7 @@ namespace asphomework1.Controllers
                 ViewData["ShippersData"] = ShippersData;
             }
 
-            
+
             OrdersService OrdersService = new OrdersService();
             ViewBag.SelectData = OrdersService.SelectOrder(selectitem);
 
@@ -62,6 +62,6 @@ namespace asphomework1.Controllers
 
         }
 
-        
+
     }
 }
