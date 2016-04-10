@@ -18,7 +18,7 @@ namespace asphomework1.Models
         [Key]
         public int OrderID { get; set; }
 
-        public int? CustomerID { get; set; }
+        public string CustomerID { get; set; }
 
         public int EmployeeID { get; set; }
 

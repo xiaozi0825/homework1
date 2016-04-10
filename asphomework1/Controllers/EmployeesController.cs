@@ -62,6 +62,22 @@ namespace asphomework1.Controllers
 
         }
 
+        [HttpPost()]
+        public JsonResult DeleteOrder(string OrderID)
+        {
+            
+            try
+            {
+                OrdersService OrdersService = new OrdersService();
+                OrdersService.DeleteOrderByID(OrderID);
+                return this.Json(true);
+            }
+            catch (Exception)
+            {
+                return this.Json(false);
+            }
+        }
+
 
     }
 }

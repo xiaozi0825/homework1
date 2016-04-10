@@ -13,7 +13,11 @@ namespace asphomework1.Models
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString.ToString();
         }
-
+        /// <summary>
+        /// 尋找訂單
+        /// </summary>
+        /// <param name="selectitem"></param>
+        /// <returns></returns>
         public List<Orders> SelectOrder(Models.SelectSearch selectitem)
         {
             DataTable selectresult = new DataTable();
@@ -64,5 +68,32 @@ namespace asphomework1.Models
             }
             return selectresult;
         }
+
+        public void DeleteOrderByID(string OrderID)
+        {
+            try
+            {
+                string sql = "Delete FROM Sales.Orders Where OrderID=@OrderID";
+                using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.Add(new SqlParameter("@OrderID", OrderID));
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+
+
     }
+
+
 }

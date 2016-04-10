@@ -1,23 +1,25 @@
 ﻿@model asphomework1.Models.SelectSearch
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>SelectIndex</title>
+
 </head>
 <body>
 
     @using (Html.BeginForm("Index", "Employees", FormMethod.Post, new { id = "Form1" }))
     {
-        <div><h3>訂單查詢</h3></div>
+        
         <div>
-            <table class="table" style="width:50%">
+            <h3>訂單查詢</h3>
+        </div>
+        <div>
+            <table class="table" style="width:75%">
                 <tr>
                     <td>訂單編號</td>
                     <td colspan="3">@Html.TextBoxFor(Models => Models.OrderID)</td>
@@ -50,17 +52,19 @@
                     <td></td>
                     <td colspan="3">
                         <input type="submit" value="查詢" />
-                        <input type="button" value="清除" />
-                        <input type="button" value="新增訂單" />
+                        <input type="reset" value="清除" />
+                        @Html.ActionLink("新增訂單", "../Customers/InsertIndex")
                     </td>
                 </tr>
             </table>
         </div>
-
+        <div>
+            <h3>查詢結果</h3>
+        </div>
         <div>
             @if (ViewBag.SelectData != null)
             {
-                <table class="table" style="width:50%">
+                <table class="table" style="width:75%">
                     <tr>
                         <td colspan="3">訂單編號</td>
                         <td colspan="3">客戶名稱</td>
@@ -74,12 +78,36 @@
                             <td colspan="3">@item.CompanyName</td>
                             <td colspan="3">@item.OrderDate</td>
                             <td colspan="3">@item.ShippedDate</td>
+                            <td>
+                                <a class="btnDelete" href="#">刪除</a>
+                                <input class="hidOrderId" type="hidden" value='@item.OrderID' />
+                            </td>
                         </tr>
                     }
                 </table>
             }
         </div>
     }
+    <script type="text/javascript">
+
+
+        $(".btnDelete").click(function (e) {
+
+            var tr = $(this).closest('tr')
+            $.ajax({
+                type: "POST",
+                url: "/Employees/DeleteOrder",
+                data: "OrderID=" + $(this).next().val(),
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    $(tr).remove();
+                }
+            });
+            return false;
+        });
+
+    </script>
 </body>
 
 </html>
