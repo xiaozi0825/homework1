@@ -68,8 +68,11 @@ namespace asphomework1.Controllers
             
             try
             {
+                
                 OrdersService OrdersService = new OrdersService();
+                OrdersService.DeleteOrderDetailByID(OrderID);
                 OrdersService.DeleteOrderByID(OrderID);
+                
                 return this.Json(true);
             }
             catch (Exception)

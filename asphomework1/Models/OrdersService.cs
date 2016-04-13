@@ -87,8 +87,26 @@ namespace asphomework1.Models
             {
                 throw ex;
             }
+        }
 
-
+        public void DeleteOrderDetailByID(string OrderID)
+        {
+            try
+            {
+                string sql = "DELETE FROM Sales.OrderDetails WHERE OrderID=@OrderID";
+                using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.Add(new SqlParameter("@OrderID", OrderID));
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
