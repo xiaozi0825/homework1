@@ -77,9 +77,9 @@ namespace asphomework1.Models
                 using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.Add(new SqlParameter("@OrderID", OrderID));
-                    cmd.ExecuteNonQuery();
+                    SqlCommand command = new SqlCommand(sql, conn);
+                    command.Parameters.Add(new SqlParameter("@OrderID", OrderID));
+                    command.ExecuteNonQuery();
                     conn.Close();
                 }
             }
@@ -97,9 +97,9 @@ namespace asphomework1.Models
                 using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.Add(new SqlParameter("@OrderID", OrderID));
-                    cmd.ExecuteNonQuery();
+                    SqlCommand command = new SqlCommand(sql, conn);
+                    command.Parameters.Add(new SqlParameter("@OrderID", OrderID));
+                    command.ExecuteNonQuery();
                     conn.Close();
                 }
             }
@@ -109,7 +109,30 @@ namespace asphomework1.Models
             }
         }
 
+        public List<Orders> SelectOrderByID(string OrderID)
+        {
+            DataTable selectresult1 = new DataTable();
+            string sql = @"SELECT OrderID,b.CompanyName,b.CustomerID,
+                            (d.LastName+'-'+d.FirstName) as Lastname,d.EmployeeID,
+                            CONVERT(varchar(10) ,OrderDate, 111 ) AS OrderDate,
+                            CONVERT(varchar(10) ,RequiredDate, 111 ) AS RequiredDate,
+                            CONVERT(varchar(10) ,ShippedDate, 111 ) AS ShippedDate,
+                            c.CompanyName as ShipperName,c.ShipperID,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry
+                            FROM Sales.Orders AS a JOIN Sales.Customers AS b ON a.CustomerID=b.CustomerID JOIN Sales.Shippers AS c ON a.ShipperID=c.ShipperID 
+                            JOIN HR.Employees AS d ON a.EmployeeID=d.EmployeeID 
+                            WHERE a.OrderID=@OrderID";
 
+            using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(sql, conn);
+                command.Parameters.Add(new SqlParameter("@OrderID", OrderID == null ? string.Empty : OrderID));
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(command);
+                sqlAdapter.Fill(selectresult1);
+                conn.Close();
+            }
+            return this.MapSelectOrder(selectresult1);
+        }
 
     }
 

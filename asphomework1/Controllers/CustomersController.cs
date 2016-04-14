@@ -90,7 +90,7 @@ namespace asphomework1.Controllers
                 });
                 ViewData["ProductsData"] = ProductsData;
             }
-            return View();
+            return View(new InsertSearch());
         }
 
         [HttpPost()]
