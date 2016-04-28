@@ -94,6 +94,23 @@ namespace asphomework1.Controllers
         }
 
         [HttpPost()]
+        public JsonResult GetProdutsUnitPrice(string ProductID)
+        {
+            try
+            {
+
+                ProductsService ProductsService = new ProductsService();
+                ProductsService.GetProductUnitPrice(ProductID);
+
+                return this.Json(ProductsService.GetProductUnitPrice(ProductID));
+            }
+            catch (Exception)
+            {
+                return this.Json(false);
+            }
+        }
+
+        [HttpPost()]
         public ActionResult InsertOrder(Models.InsertSearch order)
         {
             if (ModelState.IsValid)

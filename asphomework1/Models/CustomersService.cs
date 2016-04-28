@@ -14,7 +14,7 @@ namespace asphomework1.Models
             return System.Configuration.ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString.ToString();
         }
         /// <summary>
-        /// 
+        /// getCustomersName
         /// </summary>
         /// <returns></returns>
         public List<Customers> GetCustomerName()
@@ -49,6 +49,8 @@ namespace asphomework1.Models
             }
             return result;
         }
+
+        
 
         public int InsertOrder(Models.InsertSearch order)
         {

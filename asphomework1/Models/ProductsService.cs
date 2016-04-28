@@ -46,5 +46,37 @@ namespace asphomework1.Models
             }
             return result;
         }
+
+        public Products GetProductUnitPrice(string ProductID)
+        {
+            DataTable result = new DataTable();
+            string sql = @"SELECT UnitPrice FROM Production.Products WHERE ProductID = @ProductID";
+
+            using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(sql, conn);
+                command.Parameters.Add(new SqlParameter("@ProductID", ProductID));
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(command);
+                sqlAdapter.Fill(result);
+                conn.Close();
+            }
+            return this.MapUnitPriceList(result).FirstOrDefault();
+        }
+
+        private List<Products> MapUnitPriceList(DataTable orderData)
+        {
+            List<Products> result = new List<Products>();
+
+
+            foreach (DataRow row in orderData.Rows)
+            {
+                result.Add(new Products()
+                {
+                    UnitPrice = (decimal)row["UnitPrice"]
+                });
+            }
+            return result;
+        }
     }
 }
