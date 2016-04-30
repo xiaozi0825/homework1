@@ -1,0 +1,147 @@
+﻿@model asphomework1.Models.InsertSearch
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InsertIndex</title>
+
+</head>
+<body>
+    @using (Html.BeginForm("InsertOrder", "Customers", FormMethod.Post, new { id = "Form2" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div>
+            <h3>新增訂單</h3>
+        </div>
+        <div>
+            <table class="table" style="width:75%">
+                <tr>
+                    <td>訂單編號</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>客戶名稱</td>
+                    <td>
+                        @Html.DropDownListFor(Models => Models.CostomerID, (List<SelectListItem>)ViewData["CustomersData"])
+                        @Html.ValidationMessageFor(Models => Models.CostomerID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>負責員工名稱</td>
+                    <td>
+                        @Html.DropDownListFor(Models => Models.EmployeeID, (List<SelectListItem>)ViewData["EmpData"])
+                        @Html.ValidationMessageFor(Models => Models.EmployeeID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>訂單日期</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.OrderDate, new { @type = "date" })
+                        @Html.ValidationMessageFor(Models => Models.OrderDate)
+                    </td>
+                    <td>需要日期</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.RequiredDate, new { @type = "date" })
+                        @Html.ValidationMessageFor(Models => Models.RequiredDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td>出貨日期</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShippedDate, new { @type = "date" })
+                        @Html.ValidationMessageFor(Models => Models.ShippedDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td>出貨公司名稱</td>
+                    <td>
+                        @Html.DropDownListFor(Models => Models.ShipperID, (List<SelectListItem>)ViewData["ShippersData"])
+                        @Html.ValidationMessageFor(Models => Models.ShipperID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>運費</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.Freight)
+                        @Html.ValidationMessageFor(Models => Models.Freight)
+                    </td>
+                </tr>
+                <tr>
+                    <td>出貨國家</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShipCountry)
+                        @Html.ValidationMessageFor(Models => Models.ShipCountry)
+                    </td>
+                    <td>出貨城市</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShipCity)
+                        @Html.ValidationMessageFor(Models => Models.ShipCity)
+                    </td>
+                </tr>
+                <tr>
+                    <td>出貨地區</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShipRegion)
+                        @Html.ValidationMessageFor(Models => Models.ShipRegion)
+                    </td>
+                    <td>郵遞區號</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShipPostalCode)
+                        @Html.ValidationMessageFor(Models => Models.ShipPostalCode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>出貨地址</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShipAddress)
+                        @Html.ValidationMessageFor(Models => Models.ShipAddress)
+                    </td>
+                    <td>出貨說明</td>
+                    <td>
+                        @Html.TextBoxFor(Models => Models.ShipName)
+                        @Html.ValidationMessageFor(Models => Models.ShipName)
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="存檔" />
+                        @Html.ActionLink("回前一頁", "../Employees/Index")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            @if (ViewBag.select != null)
+            {
+                <table class="table" style="width:75%">
+                    <tr>
+                        <td colspan="3">訂單編號</td>
+                        <td colspan="3">客戶名稱</td>
+                        <td colspan="3">訂購日期</td>
+                        <td colspan="3">發貨日期</td>
+                    </tr>
+                    @foreach (var item in (List<asphomework1.Models.Orders>)ViewBag.select)
+                    {
+                        <tr id='@item.OrderID'>
+                            <td colspan="3">@item.OrderID</td>
+                            <td colspan="3">@item.CompanyName</td>
+                            <td colspan="3">@item.OrderDate</td>
+                            <td colspan="3">@item.ShippedDate</td>
+                            
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    }
+</body>
+
+</html>
