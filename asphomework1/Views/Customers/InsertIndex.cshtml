@@ -9,26 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>InsertIndex</title>
-    @*<script type="text/javascript">
-        function createorderlist() {
-            var tablelist = document.getElementById("orderlist");
-            var tr;
-            var product;
-            var price;
-            var qty;
-            tr = document.createElement("tr");
-            product = document.createElement("td");
-            product.appendChild('@Html.DropDownListFor(Models => Models.ProductID, (List<SelectListItem>)ViewData["ProductsData"])');
-            price = document.createElement("td");
-            price.appendChild('@Html.TextBoxFor(Models => Models.UnitPrice)');
-            qty = document.createElement("td");
-            qty.appendChild('@Html.TextBoxFor(Models => Models.Qty)');
-            tablelist.appendChild(tr);
-            tr.appendChild(product);
-            tr.appendChild(price);
-            tr.appendChild(qty);
-         }
-    </script>*@
+    
         
     
 </head>
@@ -101,6 +82,10 @@
                 @Html.ValidationMessageFor(Models => Models.ShipName)</td>
             </tr>
             <tr>
+                <td>訂單金額總計</td>
+                <td><input type="text" id="ordersum" value="" disabled></td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <input type="submit" value="存檔" />
@@ -125,10 +110,10 @@
                 @for (int i = 0; i < Model.OrderDetails.Count; i++)
                 {
                     <tr>
-                        <td>@Html.DropDownListFor(Models => Models.ProductID, (List<SelectListItem>)ViewData["ProductsData"])</td>
-                        <td>@Html.TextBoxFor(Models => Models.UnitPrice)</td>
-                        <td>@Html.TextBoxFor(Models => Models.Qty)</td>
-                        <td></td>
+                        <td>@Html.DropDownListFor(Models => Models.OrderDetails[i].ProductID, (List<SelectListItem>)ViewData["ProductsData"],new {@class = "ProdctID",onchange="GetPrice(this)" })</td>
+                        <td>@Html.TextBoxFor(Models => Models.OrderDetails[i].UnitPrice,new {@class="UnitPrice",@id="UnitPrice",Value = ViewBag.PriceData[i].Value,onchange = "change(this)" })</td>
+                        <td>@Html.TextBoxFor(Models => Models.OrderDetails[i].Qty,new {@class="Qty",onchange="Count(this)" })</td>
+                        <td><input type="text" class="detailsum" disabled></td>
                         <td><button type="button" class="btnRemove">取消</button></td>
                     </tr>
                 }
@@ -171,12 +156,59 @@
                 data: "ProductID=" + $("#ProductID").val(),
                 dataType: "json",
                 success: function (response) {
-                    $("#UnitPrice").val(response);
+
+                    $("#UnitPrice").val(response.UnitPrice);
                 }
             });
             return false;
         });
-            </script>
+
+        var ordersum = 0;
+        var total = 0;
+        function GetPrice(item) {
+            var price=[];
+            var array = @Html.Raw(Json.Encode(@ViewBag.PriceData));
+
+            for(var i = 0 ;i<array.length;i++){
+                price[i]=array[i].Value;
+            }
+            $(item).parent().next('td').children().val(price[item.value-1]);
+            var unitprice=$(item).parent().next('td').children().val();
+            var qty=$(item).parent().next('td').next('td').children().val();
+            total=unitprice*qty;
+            $(item).parent().next('td').next('td').next('td').children().val(total);
+            totalsum();
+        }
+        //更改單價時，小計跟著變化
+        function change(item){
+            var unitprice=$(item).closest("input:text").val();
+            var qty=$(item).parent().next('td').children().val();
+            total=unitprice*qty;
+            $(item).parent().next('td').next('td').children().val(total);
+            totalsum();
+        }
+        //更改數量時，小計跟著變化
+        function Count(item){
+            var unitprice=$(item).parent().prev('td').children().val();
+            var qty=$(item).closest("input:text").val();
+            total=unitprice*qty;
+            $(item).parent().next('td').children().val(total);
+            totalsum();
+        }
+        
+        function totalsum(){
+            ordersum = 0;
+            var detailsum = document.getElementsByClassName("detailsum");
+            for(var s=0;s<detailsum.length;s++){
+                ordersum+=parseInt(detailsum[s].value);
+                console.log(ordersum);
+            }
+
+            ordersum+=parseInt($("#Freight").val());
+            console.log(ordersum);
+            document.getElementById("ordersum").value=ordersum;
+        }
+          </script>
             }
     </div>
     }

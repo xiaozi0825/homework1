@@ -75,12 +75,22 @@ namespace asphomework1.Controllers
             ProductsService ProductsService = new ProductsService();
             List<Products> result3 = ProductsService.GetProductName();
 
-            List<SelectListItem> ProductsData = new List<SelectListItem>();
-            ProductsData.Add(new SelectListItem()
+            List<Products> result4 = ProductsService.GetProductUnitPrice();
+            List<SelectListItem> PriceData = new List<SelectListItem>();
+
+            ViewBag.PriceData = PriceData;
+            foreach (var item in result4)
             {
-                Text = "",
-                Value = null
-            });
+                PriceData.Add(new SelectListItem()
+                {
+                    Value = item.UnitPrice.ToString()
+                });
+                ViewBag.PriceData = PriceData;
+            }
+
+            
+            List<SelectListItem> ProductsData = new List<SelectListItem>();
+            
             foreach(var item in result3)
             {
                 ProductsData.Add(new SelectListItem()
@@ -93,22 +103,7 @@ namespace asphomework1.Controllers
             return View(new InsertSearch());
         }
 
-        [HttpPost()]
-        public JsonResult GetProdutsUnitPrice(string ProductID)
-        {
-            try
-            {
-
-                ProductsService ProductsService = new ProductsService();
-                ProductsService.GetProductUnitPrice(ProductID);
-
-                return this.Json(ProductsService.GetProductUnitPrice(ProductID));
-            }
-            catch (Exception)
-            {
-                return this.Json(false);
-            }
-        }
+        
 
         [HttpPost()]
         public ActionResult InsertOrder(Models.InsertSearch order)
@@ -129,7 +124,22 @@ namespace asphomework1.Controllers
 
             }
             return View(order);
-            //return View();
+        }
+        [HttpPost()]
+        public ActionResult InsertOrderDetails(Models.InsertSearch order)
+        {
+            
+
+                try
+                {
+                OrderDetailSrevice OrderDetailSrevice = new OrderDetailSrevice();
+                OrderDetailSrevice.InsertOrderDetails(order);
+                    return RedirectToAction("InsertIndex");
+                }
+                catch (Exception ex)
+                {
+                    return this.Json(ex);
+                }
         }
     }
 }
