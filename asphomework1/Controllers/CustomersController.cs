@@ -128,9 +128,7 @@ namespace asphomework1.Controllers
         [HttpPost()]
         public ActionResult InsertOrderDetails(Models.InsertSearch order)
         {
-            
-
-                try
+            try
                 {
                 OrderDetailSrevice OrderDetailSrevice = new OrderDetailSrevice();
                 OrderDetailSrevice.InsertOrderDetails(order);

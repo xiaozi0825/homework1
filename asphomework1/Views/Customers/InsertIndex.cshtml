@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <td>運費</td>
-                <td>@Html.TextBoxFor(Models => Models.Freight)
+                <td>@Html.TextBoxFor(Models => Models.Freight,new { onchange = "totalsum()"})
                 @Html.ValidationMessageFor(Models => Models.Freight)</td>
             </tr>
             <tr>
@@ -175,7 +175,12 @@
             $(item).parent().next('td').children().val(price[item.value-1]);
             var unitprice=$(item).parent().next('td').children().val();
             var qty=$(item).parent().next('td').next('td').children().val();
-            total=unitprice*qty;
+            if(qty != null){
+                total=unitprice*qty;
+            }else{
+                total=0;
+            }
+            
             $(item).parent().next('td').next('td').next('td').children().val(total);
             totalsum();
         }
@@ -195,7 +200,6 @@
             $(item).parent().next('td').children().val(total);
             totalsum();
         }
-        
         function totalsum(){
             ordersum = 0;
             var detailsum = document.getElementsByClassName("detailsum");
@@ -203,10 +207,13 @@
                 ordersum+=parseInt(detailsum[s].value);
                 console.log(ordersum);
             }
-
-            ordersum+=parseInt($("#Freight").val());
-            console.log(ordersum);
-            document.getElementById("ordersum").value=ordersum;
+            if($("#Freight").val() != ""){
+                ordersum+=parseInt($("#Freight").val());
+                document.getElementById("ordersum").value=ordersum;
+            }else{
+                
+                document.getElementById("ordersum").value=ordersum;
+            }
         }
           </script>
             }
