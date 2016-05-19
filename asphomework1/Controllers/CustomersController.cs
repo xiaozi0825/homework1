@@ -119,25 +119,12 @@ namespace asphomework1.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return this.Json(ex);
+                    throw ex;
                 }
 
             }
             return View(order);
         }
-        [HttpPost()]
-        public ActionResult InsertOrderDetails(Models.InsertSearch order)
-        {
-            try
-                {
-                OrderDetailSrevice OrderDetailSrevice = new OrderDetailSrevice();
-                OrderDetailSrevice.InsertOrderDetails(order);
-                    return RedirectToAction("InsertIndex");
-                }
-                catch (Exception ex)
-                {
-                    return this.Json(ex);
-                }
-        }
+       
     }
 }

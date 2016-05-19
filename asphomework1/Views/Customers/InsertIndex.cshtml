@@ -110,8 +110,8 @@
                 @for (int i = 0; i < Model.OrderDetails.Count; i++)
                 {
                     <tr>
-                        <td>@Html.DropDownListFor(Models => Models.OrderDetails[i].ProductID, (List<SelectListItem>)ViewData["ProductsData"],new {@class = "ProdctID",onchange="GetPrice(this)" })</td>
-                        <td>@Html.TextBoxFor(Models => Models.OrderDetails[i].UnitPrice,new {@class="UnitPrice",@id="UnitPrice",Value = ViewBag.PriceData[i].Value,onchange = "change(this)" })</td>
+                        <td>@Html.DropDownListFor(Models => Models.OrderDetails[i].ProductID, (List<SelectListItem>)ViewData["ProductsData"],new {@class = "ProductID",@onchange="GetPrice(this)" })</td>
+                        <td>@Html.TextBoxFor(Models => Models.OrderDetails[i].UnitPrice,new {@class="UnitPrice",@id="UnitPrice",Value = ViewBag.PriceData[i].Value,@onchange = "change(this)" })</td>
                         <td>@Html.TextBoxFor(Models => Models.OrderDetails[i].Qty,new {@class="Qty",onchange="Count(this)" })</td>
                         <td><input type="text" class="detailsum" disabled></td>
                         <td><button type="button" class="btnRemove">取消</button></td>
@@ -142,7 +142,7 @@
         //表單送出前置換element name 讓Action 可以讀到OrderDetials
         $('form').submit(function () {
             for (var i = 0 ; i < $('#tbContent tr').length; i++) {
-                $('.ProductId').eq(i).attr('name', 'OrderDetails[' + i + '].ProductID');
+                $('.ProductID').eq(i).attr('name', 'OrderDetails[' + i + '].ProductID');
                 $('.Qty').eq(i).attr('name', 'OrderDetails[' + i + '].Qty');
                 $('.UnitPrice').eq(i).attr('name', 'OrderDetails[' + i + '].UnitPrice');
             }
@@ -196,7 +196,7 @@
         function Count(item){
             var unitprice=$(item).parent().prev('td').children().val();
             var qty=$(item).closest("input:text").val();
-            total=unitprice*qty;
+            total=Math.round(unitprice*qty,1);
             $(item).parent().next('td').children().val(total);
             totalsum();
         }

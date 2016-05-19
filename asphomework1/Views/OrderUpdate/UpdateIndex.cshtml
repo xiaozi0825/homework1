@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    @using (Html.BeginForm("InsertOrder", "Customers", FormMethod.Post, new { id = "Form2" }))
+    @using (Html.BeginForm("UpdateIndex", "OrderUpdate", FormMethod.Post, new { id = "Form3" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
@@ -24,7 +24,7 @@
             <table class="table" style="width:75%">
                 <tr>
                     <td>訂單編號</td>
-                    <td></td>
+                    <td>@Html.TextBoxFor(Models => Models.OrderID, new { Value = ViewBag.orderid,style="border:0"})</td>
                 </tr>
                 <tr>
                     <td>客戶名稱</td>
@@ -43,19 +43,19 @@
                 <tr>
                     <td>訂單日期</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.OrderDate, new { @type = "date" })
+                        @Html.TextBoxFor(Models => Models.OrderDate, new { @type = "date"})
                         @Html.ValidationMessageFor(Models => Models.OrderDate)
                     </td>
                     <td>需要日期</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.RequiredDate, new { @type = "date" })
+                        @Html.TextBoxFor(Models => Models.RequiredDate, new { @type = "date" ,Value = ViewBag.requireddate})
                         @Html.ValidationMessageFor(Models => Models.RequiredDate)
                     </td>
                 </tr>
                 <tr>
                     <td>出貨日期</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShippedDate, new { @type = "date" })
+                        @Html.TextBoxFor(Models => Models.ShippedDate, new { @type = "date" ,Value = ViewBag.shippeddate})
                         @Html.ValidationMessageFor(Models => Models.ShippedDate)
                     </td>
                 </tr>
@@ -69,43 +69,43 @@
                 <tr>
                     <td>運費</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.Freight)
+                        @Html.TextBoxFor(Models => Models.Freight,new { Value = ViewBag.freight})
                         @Html.ValidationMessageFor(Models => Models.Freight)
                     </td>
                 </tr>
                 <tr>
                     <td>出貨國家</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShipCountry)
+                        @Html.TextBoxFor(Models => Models.ShipCountry,new {Value = ViewBag.shipcountry })
                         @Html.ValidationMessageFor(Models => Models.ShipCountry)
                     </td>
                     <td>出貨城市</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShipCity)
+                        @Html.TextBoxFor(Models => Models.ShipCity,new { Value = ViewBag.shipcity})
                         @Html.ValidationMessageFor(Models => Models.ShipCity)
                     </td>
                 </tr>
                 <tr>
                     <td>出貨地區</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShipRegion)
+                        @Html.TextBoxFor(Models => Models.ShipRegion,new { Value = ViewBag.shipregion })
                         @Html.ValidationMessageFor(Models => Models.ShipRegion)
                     </td>
                     <td>郵遞區號</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShipPostalCode)
+                        @Html.TextBoxFor(Models => Models.ShipPostalCode,new { Value = ViewBag.shippostalcode})
                         @Html.ValidationMessageFor(Models => Models.ShipPostalCode)
                     </td>
                 </tr>
                 <tr>
                     <td>出貨地址</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShipAddress)
+                        @Html.TextBoxFor(Models => Models.ShipAddress,new { Value = ViewBag.shipaddress})
                         @Html.ValidationMessageFor(Models => Models.ShipAddress)
                     </td>
                     <td>出貨說明</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShipName)
+                        @Html.TextBoxFor(Models => Models.ShipName,new { Value = ViewBag.shipname})
                         @Html.ValidationMessageFor(Models => Models.ShipName)
                     </td>
                 </tr>

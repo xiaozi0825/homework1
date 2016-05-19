@@ -52,17 +52,21 @@ namespace asphomework1.Models
 
         
 
-        public int InsertOrder(Models.InsertSearch order)
+        public string InsertOrder(Models.InsertSearch order)
         {
             string sql = @"INSERT INTO Sales.Orders
                            (CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipperID,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) 
                            VALUES (@CostomerID,@EmployeeID,@OrderDate,@RequiredDate,@ShippedDate,@ShipperID,@Freight,@ShipName,@ShipAddress,@ShipCity,@ShipRegion,@ShipPostalCode,@ShipCountry)
                            Select SCOPE_IDENTITY()";
-            int orderid;
+            string sql2 = @"INSERT INTO Sales.OrderDetails
+                           (OrderID,ProductID,UnitPrice,Qty) 
+                           VALUES (@OrderID,@ProductID,@UnitPrice,@Qty)";
+            string OrderID;
             using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
             {
                 conn.Open();
                 SqlCommand command = new SqlCommand(sql, conn);
+                SqlCommand command2 = new SqlCommand(sql2, conn);
                 command.Parameters.Add(new SqlParameter("@CostomerID", order.CostomerID));
                 command.Parameters.Add(new SqlParameter("@EmployeeID", order.EmployeeID));
                 command.Parameters.Add(new SqlParameter("@OrderDate", order.OrderDate ));
@@ -77,11 +81,22 @@ namespace asphomework1.Models
                 command.Parameters.Add(new SqlParameter("@ShipPostalCode", order.ShipPostalCode));
                 command.Parameters.Add(new SqlParameter("@ShipCountry", order.ShipCountry));
 
-                SqlDataAdapter sqlAdapter = new SqlDataAdapter(command);
-                orderid = (int)command.ExecuteScalar();
+                OrderID = command.ExecuteScalar().ToString();
+
+                for(int i = 0; i < order.OrderDetails.Count; i++)
+                {
+                    command2 = new SqlCommand(sql2, conn);
+                    command2.Parameters.Add(new SqlParameter("@OrderID", OrderID));
+                    command2.Parameters.Add(new SqlParameter("@ProductID", order.OrderDetails[i].ProductID));
+                    command2.Parameters.Add(new SqlParameter("@UnitPrice", order.OrderDetails[i].UnitPrice));
+                    command2.Parameters.Add(new SqlParameter("@Qty", order.OrderDetails[i].Qty));
+                    command2.ExecuteNonQuery();
+                }
+
+               
                 conn.Close();
             }
-            return orderid;
+            return OrderID;
         }
     }
 }

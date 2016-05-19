@@ -18,13 +18,13 @@ namespace asphomework1.Models
         [Key]
         public int OrderID { get; set; }
 
-        public string CustomerID { get; set; }
+        public int CustomerID { get; set; }
 
         public int EmployeeID { get; set; }
 
         public string OrderDate { get; set; }
 
-        public DateTime RequiredDate { get; set; }
+        public string RequiredDate { get; set; }
 
         public string ShippedDate { get; set; }
 
@@ -67,5 +67,9 @@ namespace asphomework1.Models
         [Required]
         [StringLength(40)]
         public string CompanyName { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string ShipperName { get; set; }
     }
 }

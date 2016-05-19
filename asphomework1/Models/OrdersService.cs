@@ -131,7 +131,38 @@ namespace asphomework1.Models
                 sqlAdapter.Fill(selectresult1);
                 conn.Close();
             }
-            return this.MapSelectOrder(selectresult1);
+            
+            return this.MapSelectOrderByID(selectresult1);
+        }
+        private List<Orders> MapSelectOrderByID(DataTable SelectData)
+        {
+            List<Orders> selectresult = new List<Orders>();
+
+
+            foreach (DataRow row in SelectData.Rows)
+            {
+                selectresult.Add(new Orders()
+                {
+                    OrderID = (int)row["OrderID"],
+                    CompanyName = row["CompanyName"].ToString(),
+                    CustomerID = (int)row["CustomerID"],
+                    Lastname = row["Lastname"].ToString(),
+                    EmployeeID = (int)row["EmployeeID"],
+                    OrderDate = row["OrderDate"].ToString(),
+                    RequiredDate = row["RequiredDate"].ToString(),
+                    ShippedDate = row["ShippedDate"].ToString(),
+                    ShipperName = row["ShipperName"].ToString(),
+                    ShipperID = (int)row["ShipperID"],
+                    Freight = (decimal)row["Freight"],
+                    ShipName = row["ShipName"].ToString(),
+                    ShipAddress = row["ShipAddress"].ToString(),
+                    ShipCity = row["ShipCity"].ToString(),
+                    ShipRegion = row["ShipRegion"].ToString(),
+                    ShipPostalCode = row["ShipPostalCode"].ToString(),
+                    ShipCountry = row["ShipCountry"].ToString()
+                });
+            }
+            return selectresult;
         }
 
     }
