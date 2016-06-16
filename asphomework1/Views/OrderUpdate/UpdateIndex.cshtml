@@ -29,8 +29,8 @@
                 <tr>
                     <td>客戶名稱</td>
                     <td>
-                        @Html.DropDownListFor(Models => Models.CostomerID, (List<SelectListItem>)ViewData["CustomersData"])
-                        @Html.ValidationMessageFor(Models => Models.CostomerID)
+                        @Html.DropDownListFor(Models => Models.CustomerID, (List<SelectListItem>)ViewData["CustomersData"])
+                        @Html.ValidationMessageFor(Models => Models.CustomerID)
                     </td>
                 </tr>
                 <tr>
@@ -43,19 +43,19 @@
                 <tr>
                     <td>訂單日期</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.OrderDate, new { @type = "date"})
+                        @Html.TextBoxFor(Models => Models.OrderDate, new { @type = "date",@Value=ViewBag.orderdate})
                         @Html.ValidationMessageFor(Models => Models.OrderDate)
                     </td>
                     <td>需要日期</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.RequiredDate, new { @type = "date" ,Value = ViewBag.requireddate})
+                        @Html.TextBoxFor(Models => Models.RequiredDate, new { @type = "date" ,@Value = ViewBag.requireddate})
                         @Html.ValidationMessageFor(Models => Models.RequiredDate)
                     </td>
                 </tr>
                 <tr>
                     <td>出貨日期</td>
                     <td>
-                        @Html.TextBoxFor(Models => Models.ShippedDate, new { @type = "date" ,Value = ViewBag.shippeddate})
+                        @Html.TextBoxFor(Models => Models.ShippedDate, new { @type = "date" ,@Value = ViewBag.shippeddate})
                         @Html.ValidationMessageFor(Models => Models.ShippedDate)
                     </td>
                 </tr>
@@ -113,35 +113,37 @@
                     <td></td>
                     <td>
                         <input type="submit" value="存檔" />
+                    
+                        <a class="btnDelete" href="#" onclick="location.href = '../Employees/Index'">刪除</a>
+                        <input class="hidOrderId" type="hidden" value='@ViewBag.orderid'  />
+                    
                         @Html.ActionLink("回前一頁", "../Employees/Index")
                     </td>
                 </tr>
             </table>
         </div>
-        <div>
-            @if (ViewBag.select != null)
-            {
-                <table class="table" style="width:75%">
-                    <tr>
-                        <td colspan="3">訂單編號</td>
-                        <td colspan="3">客戶名稱</td>
-                        <td colspan="3">訂購日期</td>
-                        <td colspan="3">發貨日期</td>
-                    </tr>
-                    @foreach (var item in (List<asphomework1.Models.Orders>)ViewBag.select)
-                    {
-                        <tr id='@item.OrderID'>
-                            <td colspan="3">@item.OrderID</td>
-                            <td colspan="3">@item.CompanyName</td>
-                            <td colspan="3">@item.OrderDate</td>
-                            <td colspan="3">@item.ShippedDate</td>
-                            
-                        </tr>
-                    }
-                </table>
-            }
-        </div>
+        
     }
+    <script type="text/javascript">
+
+
+        $(".btnDelete").click(function (e) {
+
+            var tr = $(this).closest('tr')
+            $.ajax({
+                type: "POST",
+                url: "/Employees/DeleteOrder",
+                data: "OrderID=" + $(this).next().val(),
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+            
+            return false;
+        });
+
+    </script>
 </body>
 
 </html>

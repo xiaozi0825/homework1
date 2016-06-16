@@ -114,9 +114,9 @@ namespace asphomework1.Models
             DataTable selectresult1 = new DataTable();
             string sql = @"SELECT OrderID,b.CompanyName,b.CustomerID,
                             (d.LastName+'-'+d.FirstName) as Lastname,d.EmployeeID,
-                            CONVERT(varchar(10) ,OrderDate, 111 ) AS OrderDate,
-                            CONVERT(varchar(10) ,RequiredDate, 111 ) AS RequiredDate,
-                            CONVERT(varchar(10) ,ShippedDate, 111 ) AS ShippedDate,
+                            CONVERT(varchar(10) ,OrderDate, 23 ) AS OrderDate,
+                            CONVERT(varchar(10) ,RequiredDate, 23 ) AS RequiredDate,
+                            CONVERT(varchar(10) ,ShippedDate, 23 ) AS ShippedDate,
                             c.CompanyName as ShipperName,c.ShipperID,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry
                             FROM Sales.Orders AS a JOIN Sales.Customers AS b ON a.CustomerID=b.CustomerID JOIN Sales.Shippers AS c ON a.ShipperID=c.ShipperID 
                             JOIN HR.Employees AS d ON a.EmployeeID=d.EmployeeID 
@@ -163,6 +163,34 @@ namespace asphomework1.Models
                 });
             }
             return selectresult;
+        }
+
+        public string updateorder(InsertSearch update)
+        {
+            string sql = "update Sales.Orders set CustomerID=@CustomerID,EmployeeID=@EmployeeID,OrderDate=@OrderDate,RequiredDate=@RequiredDate,ShippedDate=@ShippedDate,ShipperID=@ShipperID, Freight=@Freight,ShipName=@ShipName,ShipAddress=@ShipAddress,ShipCity=@ShipCity,ShipRegion= @ShipRegion,ShipPostalCode= @ShipPostalCode,ShipCountry= @ShipCountry where OrderID =@OrderID";
+
+            using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(sql, conn);
+                command.Parameters.Add(new SqlParameter("@OrderID", update.OrderID));
+                command.Parameters.Add(new SqlParameter("@CustomerID", update.CustomerID));
+                command.Parameters.Add(new SqlParameter("@EmployeeID", update.EmployeeID));
+                command.Parameters.Add(new SqlParameter("@OrderDate", update.OrderDate));
+                command.Parameters.Add(new SqlParameter("@RequiredDate", update.RequiredDate));
+                command.Parameters.Add(new SqlParameter("@ShippedDate", update.ShippedDate));
+                command.Parameters.Add(new SqlParameter("@ShipperID", update.ShipperID));
+                command.Parameters.Add(new SqlParameter("@Freight", update.Freight));
+                command.Parameters.Add(new SqlParameter("@ShipName", update.ShipName));
+                command.Parameters.Add(new SqlParameter("@ShipAddress", update.ShipAddress));
+                command.Parameters.Add(new SqlParameter("@ShipCity", update.ShipCity));
+                command.Parameters.Add(new SqlParameter("@ShipRegion", update.ShipRegion));
+                command.Parameters.Add(new SqlParameter("@ShipPostalCode", update.ShipPostalCode));
+                command.Parameters.Add(new SqlParameter("@ShipCountry", update.ShipCountry));
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            return null;
         }
 
     }

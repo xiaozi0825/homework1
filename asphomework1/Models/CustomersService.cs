@@ -56,7 +56,7 @@ namespace asphomework1.Models
         {
             string sql = @"INSERT INTO Sales.Orders
                            (CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipperID,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry) 
-                           VALUES (@CostomerID,@EmployeeID,@OrderDate,@RequiredDate,@ShippedDate,@ShipperID,@Freight,@ShipName,@ShipAddress,@ShipCity,@ShipRegion,@ShipPostalCode,@ShipCountry)
+                           VALUES (@CustomerID,@EmployeeID,@OrderDate,@RequiredDate,@ShippedDate,@ShipperID,@Freight,@ShipName,@ShipAddress,@ShipCity,@ShipRegion,@ShipPostalCode,@ShipCountry)
                            Select SCOPE_IDENTITY()";
             string sql2 = @"INSERT INTO Sales.OrderDetails
                            (OrderID,ProductID,UnitPrice,Qty) 
@@ -67,7 +67,7 @@ namespace asphomework1.Models
                 conn.Open();
                 SqlCommand command = new SqlCommand(sql, conn);
                 SqlCommand command2 = new SqlCommand(sql2, conn);
-                command.Parameters.Add(new SqlParameter("@CostomerID", order.CostomerID));
+                command.Parameters.Add(new SqlParameter("@CustomerID", order.CustomerID));
                 command.Parameters.Add(new SqlParameter("@EmployeeID", order.EmployeeID));
                 command.Parameters.Add(new SqlParameter("@OrderDate", order.OrderDate ));
                 command.Parameters.Add(new SqlParameter("@RequiredDate", order.RequiredDate));

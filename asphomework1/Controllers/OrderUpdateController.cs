@@ -27,7 +27,7 @@ namespace asphomework1.Controllers
                 ViewBag.employeeid = item.EmployeeID.ToString();
                 ViewBag.orderdate = item.OrderDate;
                 ViewBag.requireddate = item.RequiredDate;
-                ViewBag.shippeddata = item.ShippedDate;
+                ViewBag.shippeddate = item.ShippedDate;
                 ViewBag.shippername = item.ShipperName;
                 ViewBag.shipperid = item.ShipperID.ToString();
                 ViewBag.freight = item.Freight;
@@ -97,6 +97,26 @@ namespace asphomework1.Controllers
             }
 
             return View();
+        }
+        [HttpPost()]
+        public ActionResult UpdateIndex(Models.InsertSearch update)
+        {
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    OrdersService OrdersService = new OrdersService();
+                    OrdersService.updateorder(update);
+                    return RedirectToAction("UpdateIndex");
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
+            return View(update);
         }
     }
 }

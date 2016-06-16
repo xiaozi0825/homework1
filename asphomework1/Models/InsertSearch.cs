@@ -17,7 +17,7 @@ namespace asphomework1.Models
 
         public List<OrderDetails> OrderDetails { get; set; }
 
-        public string CostomerID { get; set; }
+        public string CustomerID { get; set; }
 
         public string EmployeeID { get; set; }
 
