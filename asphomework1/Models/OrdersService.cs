@@ -168,11 +168,14 @@ namespace asphomework1.Models
         public string updateorder(InsertSearch update)
         {
             string sql = "update Sales.Orders set CustomerID=@CustomerID,EmployeeID=@EmployeeID,OrderDate=@OrderDate,RequiredDate=@RequiredDate,ShippedDate=@ShippedDate,ShipperID=@ShipperID, Freight=@Freight,ShipName=@ShipName,ShipAddress=@ShipAddress,ShipCity=@ShipCity,ShipRegion= @ShipRegion,ShipPostalCode= @ShipPostalCode,ShipCountry= @ShipCountry where OrderID =@OrderID";
-
+            string sql2 = @"INSERT INTO Sales.OrderDetails
+                           (OrderID,ProductID,UnitPrice,Qty) 
+                           VALUES (@OrderID,@ProductID,@UnitPrice,@Qty)";
             using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
             {
                 conn.Open();
                 SqlCommand command = new SqlCommand(sql, conn);
+                SqlCommand command2 = new SqlCommand(sql2, conn);
                 command.Parameters.Add(new SqlParameter("@OrderID", update.OrderID));
                 command.Parameters.Add(new SqlParameter("@CustomerID", update.CustomerID));
                 command.Parameters.Add(new SqlParameter("@EmployeeID", update.EmployeeID));
@@ -188,9 +191,52 @@ namespace asphomework1.Models
                 command.Parameters.Add(new SqlParameter("@ShipPostalCode", update.ShipPostalCode));
                 command.Parameters.Add(new SqlParameter("@ShipCountry", update.ShipCountry));
                 command.ExecuteNonQuery();
+                for (int i = 0; i < update.OrderDetails.Count; i++)
+                {
+                    command2 = new SqlCommand(sql2, conn);
+                    command2.Parameters.Add(new SqlParameter("@OrderID", update.OrderID));
+                    command2.Parameters.Add(new SqlParameter("@ProductID", update.OrderDetails[i].ProductID));
+                    command2.Parameters.Add(new SqlParameter("@UnitPrice", update.OrderDetails[i].UnitPrice));
+                    command2.Parameters.Add(new SqlParameter("@Qty", update.OrderDetails[i].Qty));
+                    command2.ExecuteNonQuery();
+                }
                 conn.Close();
             }
             return null;
+        }
+
+        public List<OrderDetails> SelectOrderDetailByID(string OrderID)
+        {
+            DataTable selectresult2 = new DataTable();
+            string sql = @"select OrderID,ProductID,UnitPrice,Qty from Sales.OrderDetails where OrderID=@OrderID";
+
+            using (SqlConnection conn = new SqlConnection(this.GetconnectionStrings()))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(sql, conn);
+                command.Parameters.Add(new SqlParameter("@OrderID", OrderID == null ? string.Empty : OrderID));
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(command);
+                sqlAdapter.Fill(selectresult2);
+                conn.Close();
+            }
+            return this.MapSelectOrderDetailByID(selectresult2);
+        }
+        private List<OrderDetails> MapSelectOrderDetailByID(DataTable SelectData)
+        {
+            List<OrderDetails> selectresult2 = new List<OrderDetails>();
+
+
+            foreach (DataRow row in SelectData.Rows)
+            {
+                selectresult2.Add(new OrderDetails()
+                {
+                    OrderID = (int)row["OrderID"],
+                    ProductID = (int)row["ProductID"],
+                    UnitPrice = (decimal)row["UnitPrice"],
+                    Qty = (short)row["Qty"]
+                });
+            }
+            return selectresult2;
         }
 
     }

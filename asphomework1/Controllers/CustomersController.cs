@@ -115,7 +115,7 @@ namespace asphomework1.Controllers
                 {
                     CustomersService CustomersService = new CustomersService();
                     CustomersService.InsertOrder(order);
-                    return RedirectToAction("InsertIndex");
+                    return RedirectToAction("../Employees/Index");
                 }
                 catch (Exception ex)
                 {

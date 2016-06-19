@@ -96,8 +96,50 @@ namespace asphomework1.Controllers
                 ViewData["CustomersData"] = CustomersData;
             }
 
+            ViewBag.orderdetail = OrderService.SelectOrderDetailByID(OrderID);
+
+            List<SelectListItem> ProductsData = new List<SelectListItem>();
+            List<List<SelectListItem>> getProductList = new List<List<SelectListItem>>();
+            ProductsService ProductsService = new ProductsService();
+            List<Products> result3 = ProductsService.GetProductName();
+            for (int i = 0; i < ViewBag.orderdetail.Count; i++)
+            {
+                foreach (var item in result3)
+                {
+                    ProductsData.Add(new SelectListItem()
+                    {
+                        Text = item.ProductName,
+                        Value = item.ProductID.ToString(),
+                        Selected = item.ProductID.Equals(ViewBag.orderdetail[i].ProductID)
+                    });
+                    ViewData["ProductsData"] = ProductsData;
+                }
+                getProductList.Add(new List<SelectListItem>(ProductsData));
+                ProductsData.Clear();
+            }
+
+            ViewBag.ProductData = getProductList;
+
+            List<Products> result4 = ProductsService.GetProductUnitPrice();
+            List<SelectListItem> PriceData = new List<SelectListItem>();
+
+            ViewBag.PriceData = PriceData;
+            foreach (var item in result4)
+            {
+                PriceData.Add(new SelectListItem()
+                {
+                    Value = item.UnitPrice.ToString()
+                });
+                ViewBag.PriceData = PriceData;
+            }
+
             return View();
+
+
+            
         }
+
+
         [HttpPost()]
         public ActionResult UpdateIndex(Models.InsertSearch update)
         {
@@ -107,8 +149,9 @@ namespace asphomework1.Controllers
                 try
                 {
                     OrdersService OrdersService = new OrdersService();
+                    OrdersService.DeleteOrderDetailByID(update.OrderID);
                     OrdersService.updateorder(update);
-                    return RedirectToAction("UpdateIndex");
+                    return RedirectToAction("../Employees/Index");
                 }
                 catch (Exception ex)
                 {
